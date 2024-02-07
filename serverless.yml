@@ -1,0 +1,35 @@
+service: service-api-game
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  lambdaHashingVersion: 20201221
+  versionFunctions: false # optional, default is true
+
+package:
+  individually: true
+  patterns:
+    - "!./**"
+
+functions:
+  level-1:
+    handler: bootstrap
+    package:
+      artifact: bin/level-1.zip
+    runtime: provided.al2
+    events:
+      - httpApi:
+          path: /level/1
+          method: get
+
+# CloudFormation resources
+resources:
+  Resources:
+    NewResource:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: my-new-bucket
+  Outputs:
+    NewOutput:
+      Description: "Description for the output"
+      Value: "Some output value"
