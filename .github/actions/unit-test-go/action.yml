@@ -1,0 +1,15 @@
+name: Unit Test
+description: Executes GO unit tests
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run Unit Test
+      run: make test
+      shell: bash
+
+    - name: Test Summary
+      uses: test-summary/action@v2
+      with:
+        paths: "test-results/report.xml"
+      if: always()
