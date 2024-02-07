@@ -14,6 +14,8 @@ runs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
       shell: bash
+    - run: npm i -g serverless
+      shell: bash
     - name: Configure Git and Dependencies
       run: make configure-ci
       shell: bash

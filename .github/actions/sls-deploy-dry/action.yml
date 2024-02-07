@@ -16,7 +16,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: serverless deploy dry run
-      uses: serverless/github-action@v3.1
-      with:
-        args: deploy --stage ${{ inputs.stage }} --region ${{ inputs.region }} --noDeploy
+    - name: Serverless Package (Dry Run)
+      run: make dry-deploy
+      shell: bash
