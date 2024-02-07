@@ -1,0 +1,22 @@
+name: Serverless Deploy Dry Run
+description:
+  An action to perform a dry run serverless deploy
+
+inputs:
+  stage:
+    description: "Deployment stage"
+    required: true
+  region:
+    description: "AWS Region"
+    required: true
+  role:
+    description: "AWS role to assume"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: serverless deploy dry run
+      uses: serverless/github-action@v3.1
+      with:
+        args: deploy --stage ${{ inputs.stage }} --region ${{ inputs.region }} --noDeploy

@@ -1,0 +1,37 @@
+name: CI-CD Dev Branch
+run-name: Initiated by ${{ github.actor }}
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches-ignore:
+      - "main"
+
+concurrency:
+  # New commit on branch cancels running workflows of the same branch
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+
+jobs:
+  publish-to-dev:
+    name: Serverless Deploy Development
+    runs-on: ubuntu-latest
+    environment: development
+    strategy:
+      matrix:
+        region: [us-east-2]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/configure-ci
+      - uses: ./.github/actions/unit-test-go
+      - uses: ./.github/actions/build-go
+      - uses: ./.github/actions/sls-deploy-dry
+        with:
+          stage: development
+          region: ${{ matrix.region }}
+          role: "example-role"
+    permissions:
+      id-token: write # This is required for requesting the JWT
+      contents: read # This is required for actions/checkout

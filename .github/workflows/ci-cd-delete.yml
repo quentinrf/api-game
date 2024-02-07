@@ -1,0 +1,20 @@
+name: CI-CD Dev Branch CF Stack Cleanup
+on:
+  workflow_dispatch:
+  workflow_call:
+  delete:
+
+jobs:
+  delete-dev-stacks:
+    name: A job to delete dev branch CF stacks in one or many regions
+    if: github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    environment: development
+    strategy:
+      matrix:
+        region: [us-east-2]
+    steps:
+      - uses: actions/checkout@v3
+    permissions:
+      id-token: write
+      contents: read

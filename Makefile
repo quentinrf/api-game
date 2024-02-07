@@ -12,6 +12,17 @@ build:
 		cd bin && zip $$func.zip bootstrap && cd .. ; \
 	done
 
+configure-ci:
+	go install github.com/jstemmer/go-junit-report/v2@v2.0.0 && go mod download
+
+test:
+	rm -rf test-results/
+	mkdir -p ./test-results/
+
+	# test go code
+	go test ./... -v --cover -coverprofile ./test-results/coverprofile.txt ./ 2>&1 | tee ./test-results/output.txt
+	go-junit-report -set-exit-code < ./test-results/output.txt > ./test-results/report.xml
+
 clean:
 	rm -rf ./bin
 
