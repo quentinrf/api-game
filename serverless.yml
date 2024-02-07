@@ -1,9 +1,8 @@
 service: service-api-game
-frameworkVersion: "2"
+frameworkVersion: ">=3.0.0 <4.0.0"
 
 provider:
   name: aws
-  lambdaHashingVersion: 20201221
   versionFunctions: false # optional, default is true
 
 package:

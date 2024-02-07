@@ -27,11 +27,7 @@ clean:
 	rm -rf ./bin
 
 dry-deploy:
-	make clean
-	make build
-	sls deploy --verbose --noDeploy
+	serverless package --verbose
 
-deploy: 
-	make clean
-	make build
+deploy:
 	sls deploy --verbose
