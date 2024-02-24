@@ -27,7 +27,7 @@ clean:
 	rm -rf ./bin
 
 dry-deploy:
-	serverless package --verbose
+	serverless package --verbose --stage $(STAGE) --region $(REGION)
 
 deploy:
 	sls deploy --verbose

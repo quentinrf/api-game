@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   publish-to-dev:
-    name: Serverless Deploy Development
+    name: Serverless Deploy Development Stage
     runs-on: ubuntu-latest
     environment: development
     strategy:
@@ -25,11 +25,10 @@ jobs:
       - uses: ./.github/actions/configure-ci
       - uses: ./.github/actions/unit-test-go
       - uses: ./.github/actions/build-go
-      - uses: ./.github/actions/sls-deploy-dry
+      - uses: ./.github/actions/sls-dry-deploy
         with:
           stage: development
           region: ${{ matrix.region }}
-          role: "example-role"
     permissions:
       id-token: write # This is required for requesting the JWT
       contents: read # This is required for actions/checkout
