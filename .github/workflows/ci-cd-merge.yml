@@ -24,11 +24,10 @@ jobs:
       - uses: ./.github/actions/configure-ci
       - uses: ./.github/actions/unit-test-go
       - uses: ./.github/actions/build-go
-      # - uses: ./.github/actions/sls-deploy
-      #   with:
-      #     stage: alpha
-      #     region: ${{ matrix.region }}
-      #     role: "example-role"
+      - uses: ./.github/actions/sls-dry-deploy
+        with:
+          stage: alpha
+          region: ${{ matrix.region }}
     permissions:
       id-token: write # This is required for requesting the JWT
       contents: read # This is required for actions/checkout

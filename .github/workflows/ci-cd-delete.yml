@@ -6,7 +6,7 @@ on:
 
 jobs:
   delete-dev-stacks:
-    name: A job to delete dev branch CF stacks in one or many regions
+    name: A job to clean up a dev deployment
     if: github.event.ref_type == 'branch'
     runs-on: ubuntu-latest
     environment: development
